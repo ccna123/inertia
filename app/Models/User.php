@@ -22,6 +22,10 @@ class User extends Authenticatable
         'role',
         'email',
         'password',
+        'provider',
+        'provider_id',
+        'provider_token',
+        'provider_refresh_token',
     ];
 
     /**

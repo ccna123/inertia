@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
@@ -50,6 +51,9 @@ Route::post('/register', function () {
 });
 Route::get('/login', [LoginController::class, 'index'])->name("login");
 Route::post('/login', [LoginController::class, 'store'])->name("login");
+
+Route::get('/auth/{github}/redirect', [AuthController::class, 'redirect'])->name("github_oauth");
+Route::get('/auth/{github}/callback', [AuthController::class, 'callback'])->name("github_oauth");
 
 
 

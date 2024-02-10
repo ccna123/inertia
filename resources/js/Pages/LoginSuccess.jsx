@@ -16,9 +16,9 @@ const LoginSuccess = ({ username }) => {
                             You can go to{" "}
                             <InertiaLink
                                 className="hover:underline text-blue-600"
-                                href="/market"
+                                href="/cart"
                             >
-                                Market
+                                Cart
                             </InertiaLink>{" "}
                             to check order
                         </p>
