@@ -11,6 +11,7 @@
         "inertiajs/inertia-laravel": "^0.6.11",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
+        "laravel/socialite": "^5.11",
         "laravel/tinker": "^2.8",
         "predis/predis": "^2.2",
         "stripe/stripe-php": "^13.9"
