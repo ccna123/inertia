@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Inertia\Inertia;
+use Predis\Connection\ConnectionException;
 
 class ItemController extends Controller
 {
@@ -34,12 +36,45 @@ class ItemController extends Controller
         return $order_list;
     }
 
+    public static function getRedisConnection()
+    {
+        try {
+            return Redis::connection();
+        } catch (ConnectionException $e) {
+            return $e;
+        }
+    }
+
     public function printOrder()
     {
-        $order = self::createOrderList();
-        return Inertia::render("Cart", [
-            "items" => $order
-        ]);
+        if (env("APP_ENV") === 'production') {
+            try {
+                $redis = self::getRedisConnection();
+                $cachedOrder = $redis->get("user_" . Auth::user()->id);
+                if (isset($cachedOrder)) {
+                    $order = json_decode($cachedOrder, FALSE);
+                    return Inertia::render("Cart", [
+                        "items" => $order
+                    ]);
+                } else {
+                    $order = self::createOrderList();
+                    Redis::set("user_" . Auth::user()->id, json_encode($order));
+                    return Inertia::render("Cart", [
+                        "items" => $order
+                    ]);
+                }
+            } catch (ConnectionException $e) {
+                $order = self::createOrderList();
+                return Inertia::render("Cart", [
+                    "items" => $order
+                ]);
+            }
+        } else {
+            $order = self::createOrderList();
+            return Inertia::render("Cart", [
+                "items" => $order
+            ]);
+        }
     }
 
     public function order(Request $request)

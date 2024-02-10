@@ -55,12 +55,12 @@ Route::post('/login', [LoginController::class, 'store'])->name("login");
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/cart', [ItemController::class, "printOrder"]);
     Route::post('/logout', [LoginController::class, 'destroy']);
 
 
 
     // ----------------------Item Controller--------------------------
+    Route::get('/cart', [ItemController::class, "printOrder"]);
     Route::get('/getTotalOrderInCart', [ItemController::class, 'getTotalOrderInCart']);
     Route::post('/order', [ItemController::class, 'order']);
     Route::post('/deleteOrderItem', [ItemController::class, 'deleteOrderItem']);
@@ -69,8 +69,10 @@ Route::middleware('auth')->group(function () {
 
 
     // ----------------------Checkout Controller--------------------------
-    Route::get("/checkout", [CheckOutController::class, "checkout"])->name("checkout");
-    Route::get("/checkout/success", [CheckOutController::class, "checkout_success"])->name("checkout_success");
-    Route::get("/checkout/fail", [CheckOutController::class, "checkout_failure"])->name("checkout_failure");
+    Route::group(['prefix' => "checkout"], function () {
+        Route::get("/", [CheckOutController::class, "checkout"])->name("checkout");
+        Route::get("/success", [CheckOutController::class, "checkout_success"])->name("checkout_success");
+        Route::get("/fail", [CheckOutController::class, "checkout_failure"])->name("checkout_failure");
+    });
     Route::get("/receipt", [CheckOutController::class, "exportReceipt"]);
 });
