@@ -27,7 +27,7 @@ const Cart = ({ items }) => {
     }, [orderedItem.length]);
 
     return (
-        <Layout>
+        <div>
             <Head title="Cart" />
 
             <div className="mt-4 lg:w-[90%] lg:mx-auto">
@@ -81,7 +81,7 @@ const Cart = ({ items }) => {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </div>
     );
 };
 

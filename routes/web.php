@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
@@ -79,4 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::get("/fail", [CheckOutController::class, "checkout_failure"])->name("checkout_failure");
     });
     Route::get("/receipt", [CheckOutController::class, "exportReceipt"]);
+
+    // ----------------------Chat Controller--------------------------
+    Route::get("/chatroom", [ChatController::class, "chat"])->name("chat");
 });

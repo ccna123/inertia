@@ -4,7 +4,7 @@ import { Head } from "@inertiajs/inertia-react";
 
 const About = () => {
     return (
-        <Layout>
+        <div>
             <Head title="Login" />
             <div>
                 <form class="max-w-sm mx-auto">
@@ -56,7 +56,7 @@ const About = () => {
                     </button>
                 </form>
             </div>
-        </Layout>
+        </div>
     );
 };
 

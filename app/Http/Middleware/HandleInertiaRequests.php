@@ -37,14 +37,26 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return array_merge(parent::share($request), [
-            "auth" => Auth::user() ?  [
-                "username" => Auth::user()->name
-            ] : null,
-            "flash" => [
-                "message" => fn () => $request->session()->get("message"),
-            ],
-            "totalOrderInCart" => fn () => $request->session()->get("totalOrderInCart")
-        ]);
+        if (Auth::check()) {
+
+            return array_merge(parent::share($request), [
+                "auth" => Auth::user() ?  [
+                    "username" => Auth::user()->name
+                ] : null,
+                "flash" => [
+                    "message" => fn () => $request->session()->get("message"),
+                ],
+                "totalOrderInCart" => $request->session()->get("totalOrderInCart")
+            ]);
+        } else {
+            $request->session()->put("totalOrderInCart", 0);
+            return array_merge(parent::share($request), [
+                "auth" => null,
+                "flash" => [
+                    "message" => fn () => $request->session()->get("message"),
+                ],
+                "totalOrderInCart" => 0
+            ]);
+        }
     }
 }

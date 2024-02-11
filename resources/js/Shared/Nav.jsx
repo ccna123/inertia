@@ -31,11 +31,20 @@ export const Nav = () => {
                 </li>
 
                 {auth ? (
-                    <li className="hover:bg-black hover:text-white p-2 hover:rounded-md duration-100">
-                        <InertiaLink as="button" method="post" href="/logout">
-                            Logout
-                        </InertiaLink>
-                    </li>
+                    <>
+                        <li className="hover:bg-black hover:text-white p-2 hover:rounded-md duration-100">
+                            <InertiaLink href="/chatroom">Chatroom</InertiaLink>
+                        </li>
+                        <li className="hover:bg-black hover:text-white p-2 hover:rounded-md duration-100">
+                            <InertiaLink
+                                as="button"
+                                method="post"
+                                href="/logout"
+                            >
+                                Logout
+                            </InertiaLink>
+                        </li>
+                    </>
                 ) : (
                     <>
                         <li className="hover:bg-black hover:text-white p-2 hover:rounded-md duration-100">
