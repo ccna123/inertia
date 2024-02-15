@@ -41,12 +41,14 @@ class HandleInertiaRequests extends Middleware
 
             return array_merge(parent::share($request), [
                 "auth" => Auth::user() ?  [
-                    "username" => Auth::user()->name
+                    "id" => Auth::user()->id,
+                    "username" => Auth::user()->name,
                 ] : null,
                 "flash" => [
                     "message" => fn () => $request->session()->get("message"),
                 ],
-                "totalOrderInCart" => $request->session()->get("totalOrderInCart")
+                "totalOrderInCart" => $request->session()->get("totalOrderInCart"),
+                "node_websocket" => env("NODE_SOCKET_SERVER")
             ]);
         } else {
             $request->session()->put("totalOrderInCart", 0);
@@ -55,7 +57,8 @@ class HandleInertiaRequests extends Middleware
                 "flash" => [
                     "message" => fn () => $request->session()->get("message"),
                 ],
-                "totalOrderInCart" => 0
+                "totalOrderInCart" => 0,
+                "node_websocket" => env("NODE_SOCKET_SERVER")
             ]);
         }
     }
