@@ -33,7 +33,7 @@ const Market = ({ items }) => {
     };
 
     return (
-        <Layout>
+        <div>
             <ToastContainer />
             {showModal ? (
                 <Modal
@@ -175,7 +175,7 @@ const Market = ({ items }) => {
                     );
                 })}
             </div>
-        </Layout>
+        </div>
     );
 };
 

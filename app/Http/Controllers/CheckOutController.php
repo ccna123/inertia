@@ -79,7 +79,6 @@ class CheckOutController extends Controller
 
     public function exportReceipt()
     {
-        // return view("receipt");
         $pdf = Pdf::loadview("receipt", [
             "title" => "haha",
             "order" => ItemController::createOrderList()

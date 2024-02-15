@@ -58,6 +58,7 @@ class ItemController extends Controller
                     ]);
                 } else {
                     $order = self::createOrderList();
+                    self::getTotalOrderInCart();
                     Redis::set("user_" . Auth::user()->id, json_encode($order));
                     return Inertia::render("Cart", [
                         "items" => $order
@@ -65,12 +66,14 @@ class ItemController extends Controller
                 }
             } catch (ConnectionException $e) {
                 $order = self::createOrderList();
+                self::getTotalOrderInCart();
                 return Inertia::render("Cart", [
                     "items" => $order
                 ]);
             }
         } else {
             $order = self::createOrderList();
+            self::getTotalOrderInCart();
             return Inertia::render("Cart", [
                 "items" => $order
             ]);

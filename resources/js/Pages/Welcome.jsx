@@ -1,10 +1,10 @@
 import React from "react";
-import { Layout } from "../Shared/Layout";
 import { Head } from "@inertiajs/inertia-react";
+import { Layout } from "../Shared/Layout";
 
 const Welcome = () => {
     return (
-        <Layout>
+        <section>
             <Head title={"Welcome"} />
             <div className="flex justify-center items-center mt-28 cursor-pointer">
                 <div className="">
@@ -23,7 +23,7 @@ const Welcome = () => {
                     />
                 </div>
             </div>
-        </Layout>
+        </section>
     );
 };
 

@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Models\Items;
 use App\Models\Order;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +54,9 @@ Route::post('/register', function () {
 Route::get('/login', [LoginController::class, 'index'])->name("login");
 Route::post('/login', [LoginController::class, 'store'])->name("login");
 
+Route::get('/auth/{github}/redirect', [AuthController::class, 'redirect'])->name("github_oauth");
+Route::get('/auth/{github}/callback', [AuthController::class, 'callback'])->name("github_oauth");
+
 
 
 Route::middleware('auth')->group(function () {
@@ -75,4 +81,7 @@ Route::middleware('auth')->group(function () {
         Route::get("/fail", [CheckOutController::class, "checkout_failure"])->name("checkout_failure");
     });
     Route::get("/receipt", [CheckOutController::class, "exportReceipt"]);
+
+    // ----------------------Chat Controller--------------------------
+    // Route::get("/chatroom", [ChatController::class, "chat"])->name("chat"); // developing
 });
